@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
++@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
 
 /* Global Reset: ตั้งค่าเริ่มต้นสำหรับทุกองค์ประกอบในหน้าเว็บ */
 * {
@@ -194,6 +195,17 @@ section {
     font-size: 3.6rem; /* ขนาดของไอคอนเมนู */
     color: var(--text-color); /* สีของไอคอนเมนูเป็นสีขาว */
     display: none; /* ซ่อนเมนูไอคอน (จะใช้ในกรณีที่หน้าจอมีขนาดเล็ก) */
+}
+
+.header .navbar {
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    gap: 4rem;
+}
+
+.navbar.active {
+    display: flex;
 }
 
 /* ส่วนของหน้าแรก */
@@ -698,6 +710,213 @@ span {
     height:100px;
 }
 
+/* Responsive layout */
+@media (max-width: 1024px) {
+    section {
+        padding: 8rem 6% 2rem;
+    }
+
+    .header {
+        padding: 1rem 6%;
+    }
+
+    .home {
+        gap: 3rem;
+    }
+
+    .home-content h3 {
+        font-size: 2.8rem;
+    }
+
+    .home-content h1 {
+        font-size: 4.8rem;
+    }
+
+    .about,
+    .services-container,
+    .contact-container {
+        gap: 1.5rem;
+    }
+
+    .services-container .services-box,
+    .contact-card {
+        flex: 1 1 24rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: repeat(2, minmax(18rem, 1fr));
+    }
+
+    .portfolio-page {
+        padding-top: 10rem;
+    }
+}
+
+@media (max-width: 768px) {
+    section {
+        padding: 7rem 5% 2rem;
+    }
+
+    .header {
+        padding: 1rem 5%;
+    }
+
+    .header .navbar {
+        position: fixed;
+        top: 7.5rem;
+        left: 0;
+        right: 0;
+        width: 100%;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
+        background: rgba(17, 17, 17, 0.98);
+        gap: 1.2rem;
+        padding: 2rem 0 3rem;
+        border-top: 0.1rem solid rgba(255, 255, 255, 0.08);
+        transform: translateY(-120%);
+        opacity: 0;
+        pointer-events: none;
+        transition: transform .3s ease, opacity .3s ease;
+        z-index: 99;
+    }
+
+    .navbar.active {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+    }
+
+    #menu-icon {
+        display: inline-flex;
+        cursor: pointer;
+    }
+
+    .navbar a {
+        margin: 0;
+        font-size: 2rem;
+    }
+
+    .header .logo-link {
+        gap: 0.75rem;
+    }
+
+    .home {
+        flex-direction: column-reverse;
+        text-align: center;
+    }
+
+    .home-img img {
+        width: 80%;
+        max-width: 32rem;
+    }
+
+    .about {
+        flex-direction: column;
+    }
+
+    .about-img img {
+        width: 100%;
+        max-width: 40rem;
+    }
+
+    .about-content {
+        text-align: center;
+    }
+
+    .heading {
+        font-size: 3.8rem;
+    }
+
+    .home-content h1 {
+        font-size: 4rem;
+    }
+
+    .home-content h3 {
+        font-size: 2.4rem;
+    }
+
+    .home-content p,
+    .portfolio-overlay-caption,
+    .services-box p,
+    .about-content p {
+        font-size: 1.5rem;
+    }
+
+    .services-container .services-box,
+    .contact-card {
+        flex: 1 1 100%;
+        padding: 2rem 1.5rem;
+    }
+
+    .portfolio-container,
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .portfolio-page .section-header {
+        max-width: 100%;
+    }
+
+    .portfolio-page {
+        padding-top: 8rem;
+    }
+}
+
+@media (max-width: 480px) {
+    html {
+        font-size: 56.25%;
+    }
+
+    .header {
+        padding: 1rem 4%;
+    }
+
+    .logo-text {
+        font-size: 1.8rem;
+    }
+
+    .navbar a {
+        font-size: 1.8rem;
+    }
+
+    .home-content h1 {
+        font-size: 3.4rem;
+    }
+
+    .home-content h3 {
+        font-size: 2rem;
+    }
+
+    .home-content p,
+    .portfolio-overlay-caption,
+    .services-box p,
+    .about-content p {
+        font-size: 1.4rem;
+    }
+
+    .services-box,
+    .contact-card {
+        padding: 1.8rem 1.3rem;
+    }
+
+    .home-img img {
+        width: 95%;
+    }
+
+    .portfolio-overlay-content,
+    .image-modal-content {
+        padding: 1rem;
+    }
+
+    .portfolio-overlay-close,
+    .image-modal-close {
+        width: 3.5rem;
+        height: 3.5rem;
+        font-size: 1.8rem;
+    }
+}
+
 
 
 
@@ -739,143 +958,18 @@ span {
     color: var(--second-bg-color); /* กำหนดสีของไอคอนให้ใช้ตัวแปร --second-bg-color */
 }
 
-/* -------------------------- Responsive Design -------------------------- */
-
-/* สำหรับหน้าจอขนาดใหญ่ (สูงสุด 1200px) */
-@media (max-width:1200px) {
-    html {
-        font-size: 55%; /* ลดขนาดตัวอักษรให้เป็น 55% ของขนาดปกติ */
-    }
-}
-
-/* สำหรับหน้าจอขนาดกลาง (สูงสุด 991px) */
-@media (max-width:991px) {
-    .header {
-        padding: 2rem 3%; /* กำหนด padding ของ header เป็น 2rem ด้านบน-ล่าง และ 3% ด้านซ้าย-ขวา */
-    }
-
-    section {
-        padding: 10rem 3% 2rem; /* กำหนด padding ของ section เป็น 10rem ด้านบน, 3% ด้านซ้าย-ขวา และ 2rem ด้านล่าง */
-    }
-
+/* Responsive footer */
+@media (max-width: 768px) {
     .footer {
-        padding: 2rem 3%; /* กำหนด padding ของ footer เป็น 2rem ด้านบน-ล่าง และ 3% ด้านซ้าย-ขวา */
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding: 2rem 5%;
     }
 }
 
-/* สำหรับหน้าจอขนาดเล็ก (สูงสุด 768px) */
-@media (max-width:768px) {
-    #menu-icon {
-        display: block; /* แสดงไอคอนเมนูเมื่อขนาดหน้าจอไม่เกิน 768px */
-    }
-
-    .navbar {
-        position: absolute; /* ตั้งค่า navbar ให้อยู่เหนือส่วนอื่นๆ ในตำแหน่ง absolute */
-        top: 100%; /* ตั้งให้ navbar อยู่ด้านล่างของ header */
-        left: 0; /* จัดตำแหน่ง navbar ให้เริ่มต้นจากซ้าย */
-        width: 100%; /* ให้ navbar มีความกว้างเต็มหน้าจอ */
-        padding: 1rem 3%; /* เพิ่มระยะห่างภายในของ navbar เป็น 1rem ด้านบน-ล่าง และ 3% ด้านซ้าย-ขวา */
-        background: var(--bg-color); /* ตั้งค่าสีพื้นหลังเป็นตัวแปร --bg-color */
-        border-top: .1rem solid rgba(0,0,0,.2); /* เพิ่มเส้นขอบด้านบนให้ navbar */
-        box-shadow: 0 .5rem 1rem solid rgba(0,0,0,.2); /* เพิ่มเงาที่ด้านล่างของ navbar */
-        display: none;
-    }
-
-/* --------------------- ทำให้เมนู .navbar แสดงผลเมื่อมีคลาส 'active' --------------------- */
-    .navbar.active {
-        display: block; /* กำหนดให้เมนู .navbar แสดงผลเป็น block เมื่อมีการเพิ่มคลาส 'active' */
-    }
-
-
-
-    .navbar a {
-        display: block; /* กำหนดให้ลิงก์ใน .navbar แสดงผลเป็นบล็อก (block) ซึ่งจะทำให้ลิงก์ขยายตัวเต็มความกว้างของ container */
-        font-size: 2rem; /* กำหนดขนาดตัวอักษรของลิงก์ใน .navbar ให้เป็น 2rem */
-        margin: 3rem 0; /* เพิ่มระยะห่างด้านบนและด้านล่างของลิงก์ให้เป็น 3rem */
-    }
-}
-
-@media (max-width:991px) {
-    .portfolio-page {
-        padding: 10rem 3% 4rem;
-    }
-
-    .portfolio-page .section-header {
-        padding: 0 2rem;
-    }
-
-    .portfolio-page .section-header h2 {
-        font-size: 4.2rem;
-    }
-
-    .portfolio-page .section-header p {
-        font-size: 1.6rem;
-    }
-
-    .portfolio-grid {
-        grid-template-columns: repeat(2, minmax(18rem, 1fr));
-        gap: 1.8rem;
-    }
-
-    .project-card {
-        min-height: 20rem;
-    }
-}
-
-@media (max-width:768px) {
-    .portfolio-page {
-        padding: 8rem 3% 3rem;
-    }
-
-    .portfolio-page .section-header h2 {
-        font-size: 3.6rem;
-    }
-
-    .portfolio-page .section-header p {
-        font-size: 1.5rem;
-    }
-
-    .portfolio-grid {
-        grid-template-columns: 1fr;
-        gap: 1.5rem;
-    }
-
-    .project-card {
-        min-height: 18rem;
-        aspect-ratio: auto;
-    }
-
-    .project-card img {
-        object-fit: cover;
-    }
-}
-
-@media (max-width:576px) {
-    html {
-        font-size: 50%;
-    }
-
-    .header {
-        padding: 1.5rem 3%;
-    }
-
-    .logo-text {
-        font-size: 1.8rem;
-    }
-
-    .portfolio-page {
-        padding: 8rem 3% 2rem;
-    }
-
-    .portfolio-page .section-header h2 {
-        font-size: 3.2rem;
-    }
-
-    .portfolio-page .section-header p {
-        font-size: 1.4rem;
-    }
-
-    .project-card {
-        min-height: 16rem;
+@media (max-width: 480px) {
+    .footer {
+        padding: 1.5rem 4%;
     }
 }
