@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- กำหนดการตั้งค่าภาษาเป็นภาษาอังกฤษ -->
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Luxstone</title>
+
+    <!-- เชื่อมโยงกับ Box Icons library สำหรับการใช้ไอคอน -->
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
+
+    <!-- โลโก้สำหรับแท็บ browser (favicon) -->
+    <link rel="icon" href="images/luxstone_logo.jpg" type="image/jpeg" />
+
+    <!-- เชื่อมโยงกับไฟล์ CSS ที่กำหนดเอง -->
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+
+  <body>
+    <!-- ส่วนของ Header -->
+    <header class="header">
+      
+      <!-- โลโก้ของเว็บไซต์ -->
+      <a href="#home" class="logo-link">
+        <img src="images/luxstone_logo.jpg" alt="Luxstone logo" class="logo" />
+        <span class="logo-text">Luxstone</span>
+      </a>
+
+      <!-- ไอคอนเมนูที่จะแสดงในมือถือ -->
+      <i class='bx bx-menu' id="menu-icon"></i>
+
+      <!-- เมนูนำทาง -->
+      <nav class="navbar">
+        <a href="#home" class="active">Home</a>
+        <a href="#about">About</a>
+        <a href="#services">My Skills</a>
+        <a href="portfolio.html">Portfolio</a>
+        <a href="#contact">Contact</a>
+      </nav>
+    </header>
+
+    <!-- home section design -->
+    <section class="home" id="home">
+      <div class="home-content">
+
+        <!-- ข้อความแนะนำตัว -->
+        <h3>Hello, it's me</h3>
+        <h1>Chaiwat</h1>
+        <h3>I build modern <span class="typed-text"></span></h3>
+        <p>Front-end developer with experience in responsive web design, polished UI, and interactive website experiences using HTML, CSS, and JavaScript.</p>
+        
+
+
+        <!-- ลิงก์ไปยังโซเชียลมีเดีย -->
+        <div class="social-media">
+          <a href="#"><i class='bx bxl-facebook' ></i></a>
+          <a href="#"><i class='bx bxl-twitch' ></i></a>
+          <a href="#"><i class='bx bxl-instagram-alt' ></i></a>
+          <a href="#"><i class='bx bxl-linkedin' ></i></a>
+        </div>
+      </div>
+
+      <!-- รูปภาพแนะนำ -->
+      <div class="home-img">
+        <img src="images/luxstone_logo.jpg" alt="Luxstone logo">
+      </div>
+    </section>
+
+    <!-- about section design -->
+    <section class="about" id="about">
+      <div class="about-img">
+        <img src="images/luxstone_logo.jpg" alt="Luxstone logo">
+      </div>
+
+      <div class="about-content">
+        
+        <h2 class="heading">About<span>Me</span></h2>
+        <h3></h3>
+        
+        <p>I am currently studying Computer Science in the Faculty of Science and Technology. I have skills in web design using Figma and front-end web development with HTML, CSS, and JavaScript. I enjoy creating user-friendly and responsive interfaces and am eager to learn new technologies.</p>
+        
+        <a href="#" class="btn"></a>
+      </div>
+    </section>
+
+    <!-- my skills section design -->
+    <section class="services" id="services">
+      <h2 class="heading">My <span>Skills</span></h2>
+
+      <div class="services-container">
+        
+        <div class="services-box">
+          <i class='bx bx-code-alt'></i><br/>
+          <img src="images/html.png" alt=""><br/>         
+          
+          <a href="#" class="btn">HTML</a>
+        </div>
+
+        <div class="services-box">
+          <i class='bx bx-code-alt'></i><br/>
+          <img src="images/css.png" alt=""><br/>         
+          
+          <a href="#" class="btn">CSS</a>
+        </div>
+
+        <div class="services-box">
+          <i class='bx bx-code-alt'></i><br/>
+          <img src="images/js.png" alt=""><br/>         
+          
+          <a href="#" class="btn">JavaScript</a>
+        </div>
+
+        <div class="services-box">
+          <i class='bx bx-code-alt'></i><br/>
+          <img src="images/react.png" alt=""><br/>         
+          
+          <a href="#" class="btn">React</a>
+        </div>
+
+        <div class="services-box">
+          <i class='bx bx-code-alt'></i><br/>
+          <img src="images/tailwind.png" alt=""><br/>         
+          
+          <a href="#" class="btn">Tailwind</a>
+        </div>
+
+        <div class="services-box">
+          <i class='bx bx-code-alt'></i><br/>
+          <img src="images/bootstrap-logo.png" alt=""><br/>         
+          
+          <a href="#" class="btn">Bootstrap</a>
+        </div>
+
+
+
+      </div>
+    </section>
+
+    <!-- My projects -->
+    <section class="portfolio" id="portfolio">
+      <h2 class="heading">Lastest <span>Project</span></h2>
+      <div class="portfolio-container">
+        <!-- project 1 -->
+        <div class="portfolio-box">
+          <img src="images/product1.jpg" alt="">
+          <div class="portfolio-layer">
+            <h4>My-Web</h4>
+            <p>Developed a personal portfolio website showcasing my skills and projects using HTML, CSS, and JavaScript. Designed the layout to be responsive and user-friendly to highlight my technical abilities and achievements.</p>
+            <a href="#" class="portfolio-link"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+
+        <!-- project 2 -->
+        <div class="portfolio-box">
+          <img src="images/product2.jpg" alt="">
+          <div class="portfolio-layer">
+            <h4>ToDoList</h4>
+            <p>Created a website listing healthy food options available in convenience stores, using Bootstrap</p>
+            <a href="#" class="portfolio-link"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+
+        <!-- project 3 -->
+        <div class="portfolio-box">
+          <img src="images/product3.jpg" alt="">
+          <div class="portfolio-layer">
+            <h4>cleanfood</h4>
+            <p>Created a website listing healthy food options available in convenience stores,using Bootstrap</p>
+            <a href="#" class="portfolio-link"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+
+        <div class="portfolio-box">
+          <img src="images/cleanbank.jpg" alt="">
+          <div class="portfolio-layer">
+            <h4>not avaliable</h4>
+            <p>not avaliable</p>
+            <a href="#" class="portfolio-link"><i class='bx bx-link-external'></i></a>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <div class="image-modal" id="image-modal">
+      <div class="image-modal-content">
+        <span class="image-modal-close" id="image-modal-close">&times;</span>
+        <img id="image-modal-img" src="" alt="Project image">
+        <div class="image-modal-title" id="image-modal-title"></div>
+      </div>
+    </div>
+
+     <!-- contact section design -->
+     <section class="contact" id="contact">
+      <!-- ส่วนของ Contact Section -->
+      <h2 class="heading">My <span>Contact</span></h2>
+      
+      
+      <div class="contact-container">
+        <!-- กล่องที่เก็บการ์ดข้อมูลการติดต่อ -->
+    
+        <div class="contact-card">
+          <!-- การ์ดแรกที่ใช้แสดงข้อมูลการติดต่อ 1 -->
+         
+          <img src="images/fb.webp" alt="">
+            
+          <h2>
+            facebook not avaliable in this time
+          </h2>
+          
+        </div>
+    
+        <div class="contact-card">
+          <!-- การ์ดที่สองสำหรับการติดต่อ 2 -->
+                  
+          <img src="images/instagram.png" alt="">
+                  
+          <h2>
+            instagram not avaliable in this time
+          </h2>
+          
+        </div>
+
+        <div class="contact-card">
+          <!-- การ์ดที่สองสำหรับการติดต่อ 3 -->
+                  
+          <img src="images/phone-call.png" alt="">
+                  
+          <h2>
+            085-335-0005
+          </h2>
+          
+        </div>
+
+        <div class="contact-card">
+          <!-- การ์ดที่สองสำหรับการติดต่อ 4 -->
+                
+          <img src="images/email-icon.png" alt="">
+                  
+          <h2>
+            chaiwatbank2002@gmail.com
+          </h2>
+          
+        </div>
+                <div class="contact-card">
+          <!-- การ์ดที่สองสำหรับการติดต่อ 4 -->
+                
+          <img src="images/tiktoklogo.png" alt="TikTok">
+                  
+          <h2>
+            chaiwatbank2002@gmail.com
+          </h2>
+          
+        </div>
+    
+      </div>
+      <!-- ปิดการ์ดทั้งหมด -->
+    </section>
+    <!-- ปิดส่วนของ Contact -->
+    
+      
+ 
+
+    <!-- footer design -->
+    <footer class="footer">
+      <!-- ข้อความลิขสิทธิ์ -->
+      <div class="footer-text">
+        <p>Copyright &copy; 2024 by Chaiwatbank02</p>
+      </div>
+
+      <!-- ปุ่มขึ้นไปข้างบน -->
+      <div class="footer-iconTop">
+        <a href="#home"><i class='bx bx-up-arrow-alt'></i></a>
+      </div>
+    </footer>
+
+    <!-- เชื่อมโยงกับ Typed.js (สำหรับการพิมพ์ข้อความอัตโนมัติ) -->
+    <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12"></script>
+
+    <!-- เชื่อมโยงกับไฟล์ JavaScript ของคุณ -->
+    <script src="js/script.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+        const modal = document.getElementById('image-modal');
+        const modalImg = document.getElementById('image-modal-img');
+        const modalTitle = document.getElementById('image-modal-title');
+        const modalClose = document.getElementById('image-modal-close');
+
+        document.querySelectorAll('.portfolio-box .portfolio-link').forEach(function(link) {
+          link.addEventListener('click', function(event) {
+            event.preventDefault();
+            const box = link.closest('.portfolio-box');
+            const img = box.querySelector('img');
+            const title = box.querySelector('h4');
+            modalImg.src = img.src;
+            modalImg.alt = title ? title.textContent : 'Project image';
+            modalTitle.textContent = title ? title.textContent : '';
+            modal.classList.add('active');
+          });
+        });
+
+        function closeModal() {
+          modal.classList.remove('active');
+          modalImg.src = '';
+          modalTitle.textContent = '';
+        }
+
+        modalClose.addEventListener('click', closeModal);
+        modal.addEventListener('click', function(event) {
+          if (event.target === modal) {
+            closeModal();
+          }
+        });
+        document.addEventListener('keydown', function(event) {
+          if (event.key === 'Escape' && modal.classList.contains('active')) {
+            closeModal();
+          }
+        });
+      });
+    </script>
+  </body>
+</html>

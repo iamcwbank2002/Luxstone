@@ -1,0 +1,881 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800;900&display=swap');
+
+/* Global Reset: ตั้งค่าเริ่มต้นสำหรับทุกองค์ประกอบในหน้าเว็บ */
+* {
+    margin: 0; /* ไม่มีการเว้นขอบจากค่าตั้งต้น */
+    padding: 0; /* ไม่มีการเว้นระยะภายในจากค่าตั้งต้น */
+    box-sizing: border-box; /* คำนวณขนาดรวมของขอบและการpadding */
+    text-decoration: none; /* ไม่ให้มีการขีดเส้นใต้ในลิงก์ */
+    border: none; /* ไม่มีขอบ */
+    outline: none; /* ไม่มีเส้นขอบเมื่อลงคลิก */
+    scroll-behavior: smooth; /* เลื่อนหน้าเว็บแบบลื่นไหล */
+    font-family: 'Poppins', sans-serif; /* ใช้ฟอนต์ Poppins */
+}
+
+:root {
+    /* ตั้งค่าตัวแปรสีหลักสำหรับการใช้งานทั่วทั้งเว็บ */
+    --bg-color: #222222; /* สีพื้นหลังหลัก (สีมืด) */
+    --second-bg-color: #123524; /* สีพื้นหลังรอง (สีเทาเข้ม) */
+    --text-color: #fff; /* สีของข้อความ (สีขาว) */
+    --main-color: #08CB00; /* สีหลัก (สีเขียว) */
+}
+
+html {
+    font-size: 62.5%; /* ตั้งค่าขนาดฟอนต์ที่ 62.5% ของขนาดปกติ (1rem = 10px) */
+    overflow-x: hidden; /* ซ่อนการเลื่อนแนวนอน */
+}
+
+body {
+    background: var(--bg-color); /* กำหนดสีพื้นหลังเป็นสีมืด */
+    color: var(--text-color); /* กำหนดสีข้อความเป็นสีขาว */
+}
+
+.image-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.85);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    padding: 20px;
+}
+
+.image-modal.active {
+    display: flex;
+}
+
+.image-modal-content {
+    position: relative;
+    max-width: min(1000px, 90vw);
+    width: auto;
+    max-height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.image-modal-content img {
+    max-width: calc(100vw - 6rem);
+    max-height: calc(100vh - 8rem);
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit: contain;
+    border-radius: 16px;
+    box-shadow: 0 18px 60px rgba(0, 0, 0, 0.45);
+}
+
+.image-modal-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #ffffff;
+    color: #111111;
+    display: grid;
+    place-items: center;
+    font-size: 24px;
+    cursor: pointer;
+    border: none;
+    box-shadow: 0 12px 30px rgba(0, 0, 0, 0.25);
+    z-index: 10001;
+}
+
+.image-modal-title {
+    margin-top: 14px;
+    color: #ffffff;
+    text-align: center;
+    font-size: 18px;
+}
+
+/* Section: การตั้งค่าของแต่ละ section ในหน้าเว็บ */
+section {
+    min-height: 100vh; /* ความสูงของ section คือ ความสูงเต็มหน้าจอ */
+    padding: 10rem 9% 2rem; /* กำหนดระยะห่างจากขอบ (padding) ของแต่ละ section */
+}
+
+/* Header: ส่วนหัวของเว็บไซต์ที่อยู่ติดกับด้านบน */
+.header {
+    position: fixed; /* ทำให้ header คงที่อยู่ด้านบนสุดของหน้า */
+    top: 0; /* อยู่ที่ด้านบนสุด */
+    left: 0; /* อยู่ที่ด้านซ้ายสุด */
+    width: 100%; /* ความกว้างของ header ครอบคลุมทั้งหน้า */
+    padding: 1rem 9%; /* ระยะห่างภายในของ header */
+    background: var(--bg-color); /* พื้นหลังของ header เป็นสีมืด */
+    display: flex; /* ใช้ Flexbox เพื่อจัดการ layout ของเนื้อหาใน header */
+    justify-content: space-between; /* จัดระเบียบเนื้อหาให้กระจายไปทางซ้ายและขวา */
+    align-items: center; /* จัดให้องค์ประกอบอยู่กลางในแกน Y */
+    z-index: 100; /* ตั้งค่าระดับชั้นให้ header อยู่บนสุด */
+    transition: all .3s ease; /* เปลี่ยนแปลงได้อย่างราบรื่น */
+}
+
+.header.sticky {
+    padding: 0.8rem 9%;
+    background: rgba(34, 34, 34, 0.90);
+    backdrop-filter: blur(14px);
+    box-shadow: 0 1.2rem 2.4rem rgba(0, 0, 0, 0.25);
+    transform: translateY(-0.1rem);
+}
+
+.header.sticky .logo {
+    transform: scale(0.92);
+}
+
+.header.sticky .navbar a {
+    color: #fff;
+}
+
+.header .navbar a {
+    position: relative;
+    transition: color .3s ease;
+}
+
+.header .navbar a::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    bottom: -0.8rem;
+    width: 100%;
+    height: 0.2rem;
+    background: var(--main-color);
+    transform: scaleX(0);
+    transform-origin: left center;
+    transition: transform .3s ease;
+    border-radius: 1rem;
+}
+
+.header .navbar a:hover::after,
+.header .navbar a.active::after {
+    transform: scaleX(1);
+}
+
+/* โลโก้ในส่วนหัว */
+.logo-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 1rem;
+    text-decoration: none;
+}
+
+.logo {
+    width: 4rem; /* ความกว้างของโลโก้ */
+    height: auto; /* ให้รักษาอัตราส่วนภาพ */
+    display: block;
+}
+
+.logo-text {
+    color: var(--text-color);
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.1rem;
+}
+
+/* เมนูนำทาง */
+.navbar a {
+    font-size: 1.7rem; /* ขนาดตัวอักษรของลิงก์ในเมนู */
+    color: var(--text-color); /* สีของลิงก์เป็นสีขาว */
+    margin-left: 4rem; /* เว้นระยะจากลิงก์ก่อนหน้า */
+}
+
+.navbar a:hover,.navbar a.active {
+    color: #fff;/* เปลี่ยนสีของลิงก์เมื่อโฮเวอร์หรือคลิกเป็นสีหลัก */
+    font-weight: 600; 
+}
+
+/* ไอคอนเมนู (เมื่อหน้าจอเล็กลง) */
+#menu-icon {
+    font-size: 3.6rem; /* ขนาดของไอคอนเมนู */
+    color: var(--text-color); /* สีของไอคอนเมนูเป็นสีขาว */
+    display: none; /* ซ่อนเมนูไอคอน (จะใช้ในกรณีที่หน้าจอมีขนาดเล็ก) */
+}
+
+/* ส่วนของหน้าแรก */
+.home {
+    display: flex; /* ใช้ Flexbox เพื่อจัดเนื้อหากลาง */
+    justify-content: space-between; /* จัดให้อยู่กลางแนวนอน */
+    align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
+}
+
+/* รูปภาพในหน้าแรก */
+.home-img img{
+    width: 35vw; /* กำหนดความกว้างของรูปภาพเป็น 35% ของความกว้างหน้าจอ */
+    animation:floatImage 4s ease-in-out infinite;
+}
+
+@keyframes floatImage {
+    /* จุดเริ่มต้น (0%): อิลิเมนต์จะอยู่ที่ตำแหน่งเดิม */
+    0% {
+        transform: translateY(0); /* ไม่เคลื่อนที่ในแนวแกน Y */
+    }
+
+    /* จุดกึ่งกลาง (50%): อิลิเมนต์จะเคลื่อนที่ขึ้นไป 2.4rem */
+    50% {
+        transform: translateY(-3.4rem); /* ย้ายอิลิเมนต์ขึ้นไปข้างบน 2.4rem */
+    }
+
+    /* จุดสุดท้าย (100%): อิลิเมนต์จะกลับไปที่ตำแหน่งเดิม */
+    100% {
+        transform: translateY(0); /* กลับไปที่ตำแหน่งเริ่มต้น (ไม่เคลื่อนที่ในแนว Y) */
+    }
+}
+
+
+/* เนื้อหาข้อความในหน้าแรก */
+.home-content h3 {
+    font-size: 3.2rem; /* ขนาดของหัวข้อระดับ h3 */
+    font-weight: 700; /* ตัวอักษรหนา */
+    color: #ffffff;
+    text-shadow:
+        0 0 0.8rem rgba(8, 203, 0, 0.9),
+        0 0 2rem rgba(8, 203, 0, 0.6);
+}
+
+.home-content h3:first-of-type {
+    margin-bottom: 2rem;
+}
+
+span {
+    color: #ffffff;
+    text-shadow:
+        0 0 0.8rem rgba(8, 203, 0, 0.9),
+        0 0 1.8rem rgba(8, 203, 0, 0.5);
+}
+
+.home-content h1 {
+    font-size: 5.6rem; /* ขนาดของหัวข้อระดับ h1 */
+    font-weight: 700; /* ตัวอักษรหนา */
+    line-height: 1.3; /* ระยะห่างระหว่างบรรทัด */
+    color: #ffffff;
+    text-shadow:
+        0 0 1rem rgba(8, 203, 0, 1),
+        0 0 3rem rgba(8, 203, 0, 0.6),
+        0 0 6rem rgba(8, 203, 0, 0.2);
+}
+
+.home-content p {
+    font-size: 1.6rem; /* ขนาดของข้อความปกติ */
+}
+
+.home-content video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ปรับขนาดให้เต็มหน้าจอ */
+    z-index: -1; /* ให้วิดีโออยู่ด้านหลังเนื้อหา */
+}
+
+/* สไตล์สำหรับไอคอนโซเชียลมีเดีย */
+.social-media a {
+    display: inline-flex; /* ใช้การจัดเรียงแบบ flex */
+    justify-content: center; /* จัดให้อยู่กลาง */
+    align-items: center; /* จัดให้อยู่กลาง */
+    width: 4rem; /* ความกว้างของไอคอน */
+    height: 4rem; /* ความสูงของไอคอน */
+    background: transparent; /* พื้นหลังโปร่งใส */
+    border: .2rem solid var(--main-color); /* ขอบสีหลัก */
+    border-radius: 50%; /* ทำให้ไอคอนกลม */
+    font-size: 2rem; /* ขนาดฟอนต์ */
+    color: var(--main-color); /* สีของไอคอนเป็นสีหลัก */
+    margin: 3rem 1.5rem 3rem 0; /* กำหนดระยะห่างรอบๆ ไอคอน */
+}
+
+/* สไตล์เมื่อมีการ hover ที่ลิงก์ใน .social-media */
+.social-media a:hover {
+    background: var(--main-color); /* เปลี่ยนพื้นหลังของลิงก์ให้เป็นสีจากตัวแปร --main-color */
+    color: var(--second-bg-color); /* เปลี่ยนสีของข้อความในลิงก์ให้เป็นสีจากตัวแปร --second-bg-color */
+    box-shadow: 0 0 1rem var(--main-color); /* เพิ่มเงารอบๆ ลิงก์ที่มีสีจากตัวแปร --main-color */
+}
+
+/* สไตล์สำหรับปุ่ม .btn */
+.btn {
+    display: inline-block; /* กำหนดให้ปุ่มเป็น inline-block ซึ่งสามารถอยู่ในบรรทัดเดียวกับองค์ประกอบอื่นๆ */
+    padding: 1rem 2.8rem; /* กำหนดระยะห่างภายในปุ่ม (padding): ด้านบน/ล่าง 1rem และด้านซ้าย/ขวา 2.8rem */
+    background: var(--main-color); /* กำหนดพื้นหลังของปุ่มให้เป็นสีจากตัวแปร --main-color */
+    border-radius: 4rem; /* ทำมุมของปุ่มให้โค้งมนด้วยรัศมี 4rem */
+    box-shadow: 0 0 3rem var(--main-color); /* เพิ่มเงารอบๆ ปุ่มที่มีสีจากตัวแปร --main-color */
+    font-size: 1.6rem; /* กำหนดขนาดของตัวอักษรในปุ่มเป็น 1.6rem */
+    color: var(--second-bg-color); /* กำหนดสีของตัวอักษรในปุ่มให้เป็นสีจากตัวแปร --second-bg-color */
+    letter-spacing: .1rem; /* เพิ่มระยะห่างระหว่างตัวอักษร */
+    font-weight: 600; /* กำหนดความหนาของตัวอักษรในปุ่มให้หนา */
+    transition: .5s ease; /* กำหนดการเปลี่ยนแปลงที่ราบรื่น (transition) สำหรับการเปลี่ยนแปลงต่างๆ ใช้เวลา 0.5 วินาที */
+}
+
+/* สไตล์เมื่อมีการ hover ที่ปุ่ม .btn */
+.btn:hover {
+    box-shadow: none; /* เมื่อ hover ที่ปุ่ม จะไม่แสดงเงารอบๆ ปุ่ม */
+}
+
+
+/* สไตล์ของ container หลักใน section about */
+.about {
+    display: flex; /* ใช้ Flexbox เพื่อจัดเรียงภายใน */
+    justify-content: center; /* จัดให้อยู่กลางแนวนอน */
+    align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
+    gap: 2rem; /* ช่องว่างระหว่างแต่ละองค์ประกอบ */
+    background: var(--second-bg-color); /* ตั้งค่าสีพื้นหลังด้วยตัวแปร --second-bg-color */
+}
+
+/* สไตล์สำหรับภาพใน .about-img */
+.about-img img {
+    width: 35vw; /* กำหนดความกว้างของภาพเป็น 35% ของความกว้างของหน้าจอ */
+}
+
+/* สไตล์สำหรับหัวข้อใน .heading */
+.heading {
+    text-align: center; /* จัดหัวข้อให้อยู่กลาง */
+    font-size: 4.5rem; /* ขนาดตัวอักษรของหัวข้อ */
+}
+
+/* สไตล์ของเนื้อหาใน .about-content */
+.about-content {
+    text-align: left; /* จัดให้ข้อความใน .about-content อยู่ทางซ้าย */
+    line-height: 1.2; /* ระยะห่างระหว่างบรรทัด */
+}
+
+/* สไตล์สำหรับหัวข้อย่อยใน .about-content */
+.about-content h3 {
+    font-size: 2.6rem; /* ขนาดตัวอักษรของหัวข้อย่อย */
+}
+
+/* สไตล์สำหรับย่อหน้าภายใน .about-content */
+.about-content p {
+    margin: 2rem 0 3rem; /* ระยะห่างบน-ล่างของย่อหน้า */
+    font-size: 1.6rem; /* ขนาดของข้อความปกติ */
+    
+}
+
+/* สไตล์สำหรับหัวข้อใน section services */
+.services h2 {
+    margin-bottom: 5rem; /* ระยะห่างด้านล่างของหัวข้อ */
+}
+
+/* สไตล์สำหรับ container ของบริการใน .services-container */
+.services-container {
+    display: flex; /* ใช้ Flexbox ในการจัดเรียงภายใน */
+    justify-content: center; /* จัดให้อยู่กลางแนวนอน */
+    align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
+    flex-wrap: wrap; /* ให้เนื้อหาใน container สามารถห่อกลับได้ */
+    gap: 2rem; /* ช่องว่างระหว่างแต่ละองค์ประกอบ */
+}
+
+/* ----- Services Section ----- */
+.services-container .services-box {
+    /* กำหนดให้กล่องบริการยืดหยุ่นในแนวนอน โดยมีขนาดพื้นฐานที่ 30rem */
+    flex:1 1 30rem;
+    /* กำหนดพื้นหลังของกล่องบริการ */
+    background:var(--second-bg-color);
+    /* กำหนด padding ภายในกล่อง */
+    padding:3rem 2rem 4rem;
+    /* มุมโค้งของกล่อง */
+    border-radius:2rem;
+    /* กำหนดข้อความให้อยู่ตรงกลาง */
+    text-align:center;
+    /* กำหนดเส้นขอบของกล่อง */
+    border:.4rem solid var(--bg-color);
+    /* เพิ่มเอฟเฟกต์การเปลี่ยนแปลงเมื่อ hover */
+    transition: .5s ease;
+}
+
+/* เอฟเฟกต์ hover สำหรับกล่องบริการ */
+.services-container .services-box:hover {
+    /* เปลี่ยนสีเส้นขอบเมื่อ hover */
+    border-color: var(--main-color);
+    /* ขยายขนาดกล่องเมื่อ hover */
+    transform:scale(1.02);
+}
+
+/* กำหนดขนาดและสีของไอคอนภายในกล่องบริการ */
+.services-box i {
+    font-size:7rem;
+    color:var(--main-color);
+}
+
+/* กำหนดขนาดฟอนต์สำหรับหัวข้อในกล่องบริการ */
+.services-box h3 {
+    font-size: 2.6rem;
+}
+
+/* กำหนดขนาดฟอนต์และระยะห่างของข้อความภายในกล่องบริการ */
+.services-box p {
+    font-size: 1.6rem;
+    margin: 1rem 0 3rem;
+}
+
+.services-box img {
+    width:100px;
+    height:100px;
+}
+
+/* ----- Portfolio Section ----- */
+.portfolio {
+    /* กำหนดพื้นหลังของส่วน portfolio */
+    background: var(--second-bg-color);
+}
+
+.portfolio-page {
+    padding: 12rem 9% 4rem;
+    min-height: 100vh;
+}
+
+.portfolio-page .section-header {
+    max-width: 80rem;
+    margin: 0 auto 3.5rem;
+    text-align: center;
+}
+
+.portfolio-page .section-header p {
+    color: #d1d1e6;
+    font-size: 1.7rem;
+    line-height: 1.8;
+    margin-top: 1rem;
+}
+
+.portfolio-grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(18rem, 1fr));
+    gap: 2.4rem;
+}
+
+.project-card {
+    position: relative;
+    overflow: hidden;
+    border-radius: 2rem;
+    min-height: 26rem;
+    aspect-ratio: 4/3;
+    box-shadow: 0 1.6rem 3rem rgba(0, 0, 0, 0.18);
+    border: .1rem solid rgba(255, 255, 255, 0.12);
+    transition: transform .25s ease, box-shadow .25s ease;
+}
+
+.project-card:hover {
+    transform: translateY(-0.35rem);
+    box-shadow: 0 2.2rem 4rem rgba(0, 0, 0, 0.22);
+}
+
+.project-card img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    cursor: zoom-in;
+}
+
+.portfolio-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.88);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    z-index: 2000;
+}
+
+.portfolio-overlay.active {
+    display: flex;
+}
+
+.portfolio-overlay-content {
+    position: relative;
+    max-width: min(1000px, 90vw);
+    width: auto;
+    max-height: calc(100vh - 4rem);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem;
+    box-sizing: border-box;
+}
+
+.portfolio-overlay-content img {
+    max-width: calc(100vw - 6rem);
+    width: auto;
+    max-height: calc(100vh - 8rem);
+    height: auto;
+    border-radius: 1.8rem;
+    box-shadow: 0 2rem 3rem rgba(0,0,0,0.3);
+}
+
+.portfolio-overlay-caption {
+    margin-top: 1.2rem;
+    color: #f2f2f8;
+    text-align: center;
+    font-size: 1.6rem;
+    opacity: .92;
+}
+
+.portfolio-overlay-close {
+    position: absolute;
+    top: 1rem;
+    right: 1rem;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 50%;
+    border: none;
+    background: rgba(255,255,255,0.92);
+    color: #111;
+    font-size: 2.2rem;
+    line-height: 1;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+    box-shadow: 0 1rem 2rem rgba(0,0,0,0.2);
+    z-index: 1001;
+}
+
+.portfolio-overlay-close:hover {
+    transform: scale(1.05);
+}
+
+/* กำหนดระยะห่างใต้หัวข้อ portfolio */
+.portfolio h2{
+    margin-bottom: 4rem;
+}
+
+/* กำดันการแสดงผลแบบ grid สำหรับกล่อง portfolio */
+.portfolio-container {
+    display: grid;
+    /* กำหนดให้ grid มี 3 คอลัมน์ */
+    grid-template-columns: repeat(3, 1fr);
+    /* จัดเรียงให้อยู่ตรงกลาง */
+    align-items: center;
+    /* ระยะห่างระหว่างแต่ละกล่อง */
+    gap:2.5rem;
+}
+
+/* กำหนดลักษณะของแต่ละกล่องใน portfolio */
+.portfolio-container .portfolio-box {
+    /* ใช้ relative positioning เพื่อใช้กับ absolute positioning ของ layer */
+    position: relative;
+    /* มุมโค้งของกล่อง */
+    border-radius: 2rem;
+    /* เพิ่มเงาให้กล่อง */
+    box-shadow: 0 0 1rem var(--bg-color);
+    /* ซ่อนส่วนที่เกินจากกล่อง */
+    overflow: hidden;
+    /* ใช้ flex เพื่อจัดเรียงเนื้อหาภายในกล่อง */
+    display: flex;
+    /* Make all portfolio cards the same aspect ratio/size */
+    aspect-ratio: 4/3;
+    min-height: 22rem;
+    align-items: stretch;
+}
+
+/* กำหนดให้ภาพใน portfolio ขยายเต็มพื้นที่กล่อง */
+.portfolio-box img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* ensure images fill card without distortion */
+    transition: .5s ease;
+    display: block;
+}
+
+.portfolio-box:hover img{
+    transform:scale(1.1);/* กำหนดเลเยอร์ที่ปรากฏเมื่อ hover ภายในกล่อง portfolio */
+}
+
+
+/* ----- Portfolio Layer Styles ----- */
+.portfolio-box .portfolio-layer {
+    /* ใช้ absolute positioning เพื่อให้เลเยอร์ครอบคลุมพื้นที่ภายในกล่อง */
+    position: absolute;
+    /* วางเลเยอร์ที่ด้านล่างสุดของกล่อง */
+    bottom: 0;
+    /* วางเลเยอร์ที่ขอบซ้ายสุดของกล่อง */
+    left: 0;
+    /* กำหนดความกว้างของเลเยอร์ให้เต็มพื้นที่กล่อง */
+    width: 100%;
+    /* กำหนดความสูงของเลเยอร์ให้เต็มพื้นที่กล่อง */
+    height: 100%;
+    /* ใช้ linear gradient เพื่อสร้างเอฟเฟกต์การเปลี่ยนสีจากโปร่งใสไปยังสีหลัก */
+    background: linear-gradient(rgba(0, 0, 0, 0.1), var(--main-color));
+    /* ใช้ flexbox เพื่อจัดเรียงเนื้อหาภายในเลเยอร์ */
+    display: flex;
+    /* จัดให้องค์ประกอบภายในเลเยอร์อยู่ตรงกลางแนวนอน */
+    justify-content: center;
+    /* แก้ไขคำสั่งผิดพลาด: 'align-items' ไม่ควรเป็น 'align:-items' */
+    align-items: center; /* แก้ไขจาก align:-items */
+    /* ตั้งค่าทิศทางของ flexbox เป็นคอลัมน์ */
+    flex-direction: column;
+    /* ตั้งค่าข้อความให้อยู่ตรงกลาง */
+    text-align: center;
+    /* กำหนด padding ภายในเลเยอร์ */
+    padding: 0.4rem;
+    transform: translateY(100%);
+    transition: .5s ease;
+}
+
+.portfolio-box:hover .portfolio-layer {
+    transform: translateY(0);
+}
+
+/* ----- Portfolio Layer Paragraph Styles ----- */
+.portfolio-layer p {
+    /* กำหนดขนาดฟอนต์ในข้อความ */
+    font-size: 1.6rem;
+    /* กำหนดระยะห่างระหว่างบรรทัดของข้อความ */
+    margin: .3rem 0 1rem;
+}
+
+/* ----- Portfolio Layer Link (Button) Styles ----- */
+.portfolio-layer a {
+    /* ใช้ inline-flex เพื่อให้สามารถใช้ flexbox ใน link ได้ */
+    display: inline-flex;
+    /* จัดให้องค์ประกอบภายใน link อยู่ตรงกลางแนวนอน */
+    justify-content: center;
+    /* จัดให้องค์ประกอบภายใน link อยู่ตรงกลางแนวตั้ง */
+    align-items: center;
+    /* กำหนดขนาดความกว้างและความสูงของปุ่ม */
+    width: 5rem;
+    height: 5rem;
+    /* กำหนดพื้นหลังของปุ่ม */
+    background: var(--text-color);
+    /* ทำให้ปุ่มมีลักษณะเป็นวงกลม */
+    border-radius: 50%;
+}
+
+/* ----- Portfolio Layer Link Icon Styles ----- */
+.portfolio-layer a i {
+    /* กำหนดขนาดของไอคอน */
+    font-size: 2rem;
+    /* กำหนดสีของไอคอนให้เข้ากับพื้นหลังของเลเยอร์ */
+    color: var(--second-bg-color);
+}
+
+/* กำหนดระยะห่างด้านล่างของหัวข้อ .contact h2 */
+.contact-container{
+    display: flex; /* ใช้ Flexbox ในการจัดเรียงภายใน */
+    justify-content: center; /* จัดให้อยู่กลางแนวนอน */
+    align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
+    flex-wrap: wrap; /* ให้เนื้อหาใน container สามารถห่อกลับได้ */
+    gap: 2rem; /* ช่องว่างระหว่างแต่ละองค์ประกอบ */
+    
+}
+
+.contact h2 {
+    margin-bottom: 3rem; /* ระยะห่างด้านล่าง 3rem */
+}
+
+/* กำหนดลักษณะของ form ภายใน .contact */
+.contact-card {
+    /* กำหนดให้กล่องยืดหยุ่นในแนวนอน โดยมีขนาดพื้นฐานที่ 30rem */
+    flex:1 1 30rem;
+    /* กำหนดพื้นหลังของกล่อง */
+    background:var(--second-bg-color);
+    /* กำหนด padding ภายในกล่อง */
+    padding:3rem 2rem 4rem;
+    /* มุมโค้งของกล่อง */
+    border-radius:2rem;
+    /* กำหนดข้อความให้อยู่ตรงกลาง */
+    text-align:center;
+    /* กำหนดเส้นขอบของกล่อง */
+    border:.4rem solid var(--bg-color);
+    /* เพิ่มเอฟเฟกต์การเปลี่ยนแปลงเมื่อ hover */
+    transition: .5s ease;
+        
+}
+.contact-container .contact-card:hover {
+    /* เปลี่ยนสีเส้นขอบเมื่อ hover */
+    border-color: var(--main-color);
+    /* ขยายขนาดกล่องเมื่อ hover */
+    transform:scale(1.02);
+}
+
+/* กำหนดขนาดฟอนต์ของภาพภายในการ์ด */
+.contact-card img {
+    width:100px;
+    height:100px;
+}
+
+
+
+
+
+/* กำหนดสไตล์ของ footer */
+.footer {
+    display: flex; /* ใช้ Flexbox ในการจัดเรียงเนื้อหาภายใน footer */
+    justify-content: space-between; /* กระจายเนื้อหาให้ห่างกันและจัดให้เริ่มจากขอบซ้ายและขวา */
+    align-items: center; /* จัดแนวเนื้อหาภายในให้ตั้งอยู่กลางในแนวตั้ง */
+    flex-wrap: wrap; /* ถ้าเนื้อหามากเกินไปจะทำให้สามารถขึ้นบรรทัดใหม่ได้ */
+    padding: 2rem 9%; /* กำหนดระยะห่างภายใน footer ทั้งด้านบน-ล่าง และซ้าย-ขวา */
+    background: var(--second-bg-color); /* ตั้งค่าสีพื้นหลังของ footer โดยใช้ตัวแปรสีที่กำหนดไว้ใน CSS */
+}
+
+/* ------------------------ Footer Text Style ------------------------ */
+.footer-text p {
+    font-size: 1.6rem; /* กำหนดขนาดตัวอักษรใน <p> ของ .footer-text ให้เป็น 1.6rem */
+}
+
+/* ------------------------ Footer Icon Style ------------------------ */
+.footer-iconTop {
+    display: inline-flex; /* ใช้ flexbox เพื่อจัดเรียงภายในเป็นแนวนอน */
+    justify-content: center; /* จัดเรียงองค์ประกอบภายในให้ตรงกลางในแนวนอน */
+    align-items: center; /* จัดเรียงองค์ประกอบภายในให้ตรงกลางในแนวตั้ง */
+    padding: .8rem; /* กำหนดระยะห่างภายในของไอคอน */
+    background: var(--main-color); /* ตั้งค่าสีพื้นหลังเป็นตัวแปร --main-color */
+    border-radius: .8rem; /* ทำให้มุมของ .footer-iconTop โค้งมน */
+    transition: .5s ease; /* เพิ่มการเปลี่ยนแปลงที่ราบรื่นในช่วงเวลา 0.5 วินาที */
+}
+
+/* ------------------------ Hover Effect on Footer Icon ------------------------ */
+.footer-iconTop a:hover {
+    box-shadow: 0 0 3rem var(--main-color); /* เพิ่มเงารอบๆ ไอคอนเมื่อผู้ใช้ hover ด้วยขนาด 3rem และสี --main-color */
+}
+
+/* ------------------------ Icon Style in Footer ------------------------ */
+.footer-iconTop a i {
+    font-size: 2.4rem; /* กำหนดขนาดตัวอักษรของไอคอนใน <i> เป็น 2.4rem */
+    color: var(--second-bg-color); /* กำหนดสีของไอคอนให้ใช้ตัวแปร --second-bg-color */
+}
+
+/* -------------------------- Responsive Design -------------------------- */
+
+/* สำหรับหน้าจอขนาดใหญ่ (สูงสุด 1200px) */
+@media (max-width:1200px) {
+    html {
+        font-size: 55%; /* ลดขนาดตัวอักษรให้เป็น 55% ของขนาดปกติ */
+    }
+}
+
+/* สำหรับหน้าจอขนาดกลาง (สูงสุด 991px) */
+@media (max-width:991px) {
+    .header {
+        padding: 2rem 3%; /* กำหนด padding ของ header เป็น 2rem ด้านบน-ล่าง และ 3% ด้านซ้าย-ขวา */
+    }
+
+    section {
+        padding: 10rem 3% 2rem; /* กำหนด padding ของ section เป็น 10rem ด้านบน, 3% ด้านซ้าย-ขวา และ 2rem ด้านล่าง */
+    }
+
+    .footer {
+        padding: 2rem 3%; /* กำหนด padding ของ footer เป็น 2rem ด้านบน-ล่าง และ 3% ด้านซ้าย-ขวา */
+    }
+}
+
+/* สำหรับหน้าจอขนาดเล็ก (สูงสุด 768px) */
+@media (max-width:768px) {
+    #menu-icon {
+        display: block; /* แสดงไอคอนเมนูเมื่อขนาดหน้าจอไม่เกิน 768px */
+    }
+
+    .navbar {
+        position: absolute; /* ตั้งค่า navbar ให้อยู่เหนือส่วนอื่นๆ ในตำแหน่ง absolute */
+        top: 100%; /* ตั้งให้ navbar อยู่ด้านล่างของ header */
+        left: 0; /* จัดตำแหน่ง navbar ให้เริ่มต้นจากซ้าย */
+        width: 100%; /* ให้ navbar มีความกว้างเต็มหน้าจอ */
+        padding: 1rem 3%; /* เพิ่มระยะห่างภายในของ navbar เป็น 1rem ด้านบน-ล่าง และ 3% ด้านซ้าย-ขวา */
+        background: var(--bg-color); /* ตั้งค่าสีพื้นหลังเป็นตัวแปร --bg-color */
+        border-top: .1rem solid rgba(0,0,0,.2); /* เพิ่มเส้นขอบด้านบนให้ navbar */
+        box-shadow: 0 .5rem 1rem solid rgba(0,0,0,.2); /* เพิ่มเงาที่ด้านล่างของ navbar */
+        display: none;
+    }
+
+/* --------------------- ทำให้เมนู .navbar แสดงผลเมื่อมีคลาส 'active' --------------------- */
+    .navbar.active {
+        display: block; /* กำหนดให้เมนู .navbar แสดงผลเป็น block เมื่อมีการเพิ่มคลาส 'active' */
+    }
+
+
+
+    .navbar a {
+        display: block; /* กำหนดให้ลิงก์ใน .navbar แสดงผลเป็นบล็อก (block) ซึ่งจะทำให้ลิงก์ขยายตัวเต็มความกว้างของ container */
+        font-size: 2rem; /* กำหนดขนาดตัวอักษรของลิงก์ใน .navbar ให้เป็น 2rem */
+        margin: 3rem 0; /* เพิ่มระยะห่างด้านบนและด้านล่างของลิงก์ให้เป็น 3rem */
+    }
+}
+
+@media (max-width:991px) {
+    .portfolio-page {
+        padding: 10rem 3% 4rem;
+    }
+
+    .portfolio-page .section-header {
+        padding: 0 2rem;
+    }
+
+    .portfolio-page .section-header h2 {
+        font-size: 4.2rem;
+    }
+
+    .portfolio-page .section-header p {
+        font-size: 1.6rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: repeat(2, minmax(18rem, 1fr));
+        gap: 1.8rem;
+    }
+
+    .project-card {
+        min-height: 20rem;
+    }
+}
+
+@media (max-width:768px) {
+    .portfolio-page {
+        padding: 8rem 3% 3rem;
+    }
+
+    .portfolio-page .section-header h2 {
+        font-size: 3.6rem;
+    }
+
+    .portfolio-page .section-header p {
+        font-size: 1.5rem;
+    }
+
+    .portfolio-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .project-card {
+        min-height: 18rem;
+        aspect-ratio: auto;
+    }
+
+    .project-card img {
+        object-fit: cover;
+    }
+}
+
+@media (max-width:576px) {
+    html {
+        font-size: 50%;
+    }
+
+    .header {
+        padding: 1.5rem 3%;
+    }
+
+    .logo-text {
+        font-size: 1.8rem;
+    }
+
+    .portfolio-page {
+        padding: 8rem 3% 2rem;
+    }
+
+    .portfolio-page .section-header h2 {
+        font-size: 3.2rem;
+    }
+
+    .portfolio-page .section-header p {
+        font-size: 1.4rem;
+    }
+
+    .project-card {
+        min-height: 16rem;
+    }
+}
