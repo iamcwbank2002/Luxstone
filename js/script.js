@@ -85,4 +85,45 @@ if (portfolioOverlay && overlayImage && overlayCaption && overlayClose) {
     });
 }
 
+/* ==================== Image Modal on index.html ==================== */
+const imageModal = document.getElementById('image-modal');
+const imageModalImg = document.getElementById('image-modal-img');
+const imageModalTitle = document.getElementById('image-modal-title');
+const imageModalClose = document.getElementById('image-modal-close');
+
+if (imageModal && imageModalImg && imageModalTitle && imageModalClose) {
+    document.querySelectorAll('.portfolio-box .portfolio-link').forEach((link) => {
+        link.addEventListener('click', (event) => {
+            event.preventDefault();
+            const box = link.closest('.portfolio-box');
+            const img = box ? box.querySelector('img') : null;
+            const title = box ? box.querySelector('h4') : null;
+            if (!img) return;
+            imageModalImg.src = img.src;
+            imageModalImg.alt = title ? title.textContent : 'Project image';
+            imageModalTitle.textContent = title ? title.textContent : '';
+            imageModal.classList.add('active');
+        });
+    });
+
+    const closeImageModal = () => {
+        imageModal.classList.remove('active');
+        imageModalImg.src = '';
+        imageModalTitle.textContent = '';
+    };
+
+    imageModalClose.addEventListener('click', closeImageModal);
+    imageModal.addEventListener('click', (event) => {
+        if (event.target === imageModal) {
+            closeImageModal();
+        }
+    });
+
+    window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && imageModal.classList.contains('active')) {
+            closeImageModal();
+        }
+    });
+}
+
 

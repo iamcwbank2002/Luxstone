@@ -280,44 +280,5 @@
 
     <!-- เชื่อมโยงกับไฟล์ JavaScript ของคุณ -->
     <script src="js/script.js"></script>
-    <script>
-      document.addEventListener('DOMContentLoaded', function() {
-        const modal = document.getElementById('image-modal');
-        const modalImg = document.getElementById('image-modal-img');
-        const modalTitle = document.getElementById('image-modal-title');
-        const modalClose = document.getElementById('image-modal-close');
-
-        document.querySelectorAll('.portfolio-box .portfolio-link').forEach(function(link) {
-          link.addEventListener('click', function(event) {
-            event.preventDefault();
-            const box = link.closest('.portfolio-box');
-            const img = box.querySelector('img');
-            const title = box.querySelector('h4');
-            modalImg.src = img.src;
-            modalImg.alt = title ? title.textContent : 'Project image';
-            modalTitle.textContent = title ? title.textContent : '';
-            modal.classList.add('active');
-          });
-        });
-
-        function closeModal() {
-          modal.classList.remove('active');
-          modalImg.src = '';
-          modalTitle.textContent = '';
-        }
-
-        modalClose.addEventListener('click', closeModal);
-        modal.addEventListener('click', function(event) {
-          if (event.target === modal) {
-            closeModal();
-          }
-        });
-        document.addEventListener('keydown', function(event) {
-          if (event.key === 'Escape' && modal.classList.contains('active')) {
-            closeModal();
-          }
-        });
-      });
-    </script>
   </body>
 </html>

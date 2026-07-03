@@ -107,12 +107,12 @@ section {
     top: 0; /* อยู่ที่ด้านบนสุด */
     left: 0; /* อยู่ที่ด้านซ้ายสุด */
     width: 100%; /* ความกว้างของ header ครอบคลุมทั้งหน้า */
-    padding: 1rem 9%; /* ระยะห่างภายในของ header */
+    padding: 1rem clamp(2rem, 6vw, 9%); /* ระยะห่างภายในของ header */
     background: var(--bg-color); /* พื้นหลังของ header เป็นสีมืด */
     display: flex; /* ใช้ Flexbox เพื่อจัดการ layout ของเนื้อหาใน header */
     justify-content: space-between; /* จัดระเบียบเนื้อหาให้กระจายไปทางซ้ายและขวา */
     align-items: center; /* จัดให้องค์ประกอบอยู่กลางในแกน Y */
-    z-index: 100; /* ตั้งค่าระดับชั้นให้ header อยู่บนสุด */
+    z-index: 100; /* ตั้งค่าระดับชั้นให้ headerอยู่บนสุด */
     transition: all .3s ease; /* เปลี่ยนแปลงได้อย่างราบรื่น */
 }
 
@@ -201,11 +201,25 @@ section {
     display: flex; /* ใช้ Flexbox เพื่อจัดเนื้อหากลาง */
     justify-content: space-between; /* จัดให้อยู่กลางแนวนอน */
     align-items: center; /* จัดให้อยู่กลางแนวตั้ง */
+    gap: 2rem;
+    padding-top: 5rem;
+}
+
+.home-content {
+    max-width: 60rem;
+}
+
+.home-img {
+    width: min(45rem, 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 /* รูปภาพในหน้าแรก */
 .home-img img{
-    width: 35vw; /* กำหนดความกว้างของรูปภาพเป็น 35% ของความกว้างหน้าจอ */
+    width: 100%;
+    max-width: 35rem;
     animation:floatImage 4s ease-in-out infinite;
 }
 
@@ -546,12 +560,11 @@ span {
 /* กำดันการแสดงผลแบบ grid สำหรับกล่อง portfolio */
 .portfolio-container {
     display: grid;
-    /* กำหนดให้ grid มี 3 คอลัมน์ */
-    grid-template-columns: repeat(3, 1fr);
-    /* จัดเรียงให้อยู่ตรงกลาง */
-    align-items: center;
-    /* ระยะห่างระหว่างแต่ละกล่อง */
-    gap:2.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(22rem, 1fr));
+    justify-items: center;
+    gap: 2rem;
+    max-width: 120rem;
+    margin: 0 auto;
 }
 
 /* กำหนดลักษณะของแต่ละกล่องใน portfolio */
@@ -568,7 +581,8 @@ span {
     display: flex;
     /* Make all portfolio cards the same aspect ratio/size */
     aspect-ratio: 4/3;
-    min-height: 22rem;
+    min-height: 16rem;
+    max-width: 36rem;
     align-items: stretch;
 }
 
@@ -786,6 +800,53 @@ span {
         display: block; /* กำหนดให้เมนู .navbar แสดงผลเป็น block เมื่อมีการเพิ่มคลาส 'active' */
     }
 
+    .home {
+        flex-direction: column;
+        align-items: center;
+        gap: 1rem;
+        padding-top: 6rem;
+    }
+
+    .home-img {
+        order: -1;
+        margin-bottom: 1rem;
+    }
+
+    .home-content,
+    .home-img,
+    .about-img,
+    .about-content,
+    .services-box,
+    .contact-card {
+        width: 100%;
+        max-width: 56rem;
+    }
+
+    .home-img img,
+    .about-img img {
+        width: 100%;
+        max-width: 28rem;
+    }
+
+    .home-content {
+        text-align: center;
+        padding: 0 1.5rem;
+    }
+
+    .home-img {
+        padding: 0 1.5rem;
+    }
+
+    .services-container,
+    .contact-container {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .services-box,
+    .contact-card {
+        max-width: 45rem;
+    }
 
 
     .navbar a {
@@ -877,5 +938,27 @@ span {
 
     .project-card {
         min-height: 16rem;
+    }
+
+    .portfolio-container {
+        grid-template-columns: 1fr;
+    }
+
+    .footer {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+    }
+
+    .footer-iconTop {
+        margin-top: 2rem;
+    }
+
+    .services-box {
+        margin-bottom: 2rem;
+    }
+
+    .contact-card {
+        margin-bottom: 2rem;
     }
 }
